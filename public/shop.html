@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | CodeAlpha Premium Catalog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="guard.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">CodeAlpha</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="#">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="shop-search" placeholder="Search products...">
+                </div>
+                <div class="icon-btns">
+                    <button id="auth-btn"><i data-lucide="user"></i></button>
+                    <button id="cart-btn" class="cart-icon">
+                        <i data-lucide="shopping-bag"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="shop-header">
+            <div class="container">
+                <h1>Our <span>Collection</span></h1>
+                <p>Browse through our premium selection across multiple categories.</p>
+            </div>
+        </section>
+
+        <section class="shop-container">
+            <aside class="filters">
+                <h3>Categories</h3>
+                <ul class="category-list">
+                    <li><button class="cat-btn active" data-category="all">All Products</button></li>
+                    <li><button class="cat-btn" data-category="Electronics">Electronics</button></li>
+                    <li><button class="cat-btn" data-category="Fashion">Fashion</button></li>
+                    <li><button class="cat-btn" data-category="Mobile">Mobile</button></li>
+                    <li><button class="cat-btn" data-category="Gaming">Gaming</button></li>
+                    <li><button class="cat-btn" data-category="Beauty">Beauty</button></li>
+                    <li><button class="cat-btn" data-category="Home Decor">Home Decor</button></li>
+                    <li><button class="cat-btn" data-category="Sports">Sports</button></li>
+                    <li><button class="cat-btn" data-category="favorites"><i data-lucide="heart" size="14"></i> My
+                            Favorites</button></li>
+                </ul>
+            </aside>
+
+            <div class="shop-content">
+                <div class="shop-toolbar">
+                    <p id="product-count">Showing all products</p>
+                    <select id="sort-by">
+                        <option value="default">Sort by: Featured</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+
+                <div id="shop-grid">
+                    <!-- Products will be loaded here -->
+                    <div class="loader"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">E-Cart<span> Elite</span></div>
+                <p>The standard of modern e-commerce.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Join our list for exclusive releases.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Email address">
+                    <button><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 E-Cart Elite. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Auth Modal (Reused) -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            <form id="login-form" class="auth-form active">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <form id="register-form" class="auth-form">
+                <input type="text" placeholder="Username" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-detail-modal">
+            <button class="close-modal">&times;</button>
+            <div class="product-detail-container">
+                <div class="product-detail-image">
+                    <img id="modal-product-image" src="" alt="">
+                </div>
+                <div class="product-detail-info">
+                    <p id="modal-product-category" class="product-category"></p>
+                    <h2 id="modal-product-name"></h2>
+                    <p id="modal-product-price" class="product-price"></p>
+                    <p id="modal-product-description"></p>
+
+                    <div class="product-advantages">
+                        <h4>Product Advantages</h4>
+                        <ul id="modal-product-advantages">
+                            <!-- Advantages will be loaded here -->
+                        </ul>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button id="modal-add-to-cart" class="btn-primary">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer (Reused) -->
+    <div id="cart-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Your Cart</h3>
+            <button class="close-drawer">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="drawer-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="total-amount">$0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn-primary" onclick="openCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">1</div>
+                <div class="step" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+            </div>
+
+            <form id="checkout-form">
+                <!-- Step 1: Address -->
+                <div class="checkout-form-step active" data-step="1">
+                    <h3>Delivery Address</h3>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="checkout-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="checkout-address" placeholder="Flat/House No, Colony, Street" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>City & Pincode</label>
+                        <input type="text" id="checkout-city" placeholder="City, Pincode" required>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-primary next-step">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-form-step" data-step="2">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="gpay" required>
+                            <i data-lucide="smartphone"></i>
+                            <span>Google Pay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="phonepe">
+                            <i data-lucide="smartphone"></i>
+                            <span>PhonePe</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <i data-lucide="truck"></i>
+                            <span>Cash on Delivery</span>
+                        </label>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-secondary prev-step">Back</button>
+                        <button type="submit" class="btn-primary">Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div class="checkout-form-step" data-step="3">
+                    <div class="success-content">
+                        <div class="success-icon">
+                            <i data-lucide="check" size="40"></i>
+                        </div>
+                        <h2>Order Placed!</h2>
+                        <div id="order-summary" class="order-summary-box">
+                            <!-- Order details will be injected here -->
+                        </div>
+                        <p>Your order has been successfully placed and will be delivered soon.</p>
+                        <div class="checkout-actions">
+                            <button type="button" class="btn-secondary" onclick="window.location.reload()">Continue
+                                Shopping</button>
+                            <button type="button" class="btn-primary" onclick="window.location.href='orders.html'">Track
+                                Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="checkout.js"></script>
+    <script src="shop.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

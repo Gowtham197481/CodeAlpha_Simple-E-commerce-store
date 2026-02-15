@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha | Login or Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body.auth-page {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80') no-repeat center center/cover;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .auth-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            z-index: 1;
+        }
+
+        .auth-card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-header .logo {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-header p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.4rem;
+            border-radius: 12px;
+        }
+
+        .auth-tabs button {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: var(--transition);
+            color: var(--text-light);
+        }
+
+        .auth-tabs button.active {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 1rem;
+            top: 1.1rem;
+            color: #999;
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1.1rem 1rem 1.1rem 3rem;
+            border: 1.5px solid #eee;
+            border-radius: 12px;
+            outline: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        .social-login {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+
+        .social-login p {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-btns {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            border: 1.5px solid #eee;
+            background: var(--white);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .social-btn:hover {
+            background: #fdfdfd;
+            border-color: #ddd;
+            transform: translateY(-2px);
+        }
+
+        .social-btn img {
+            width: 20px;
+        }
+
+        .back-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 10;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0.8rem 1.2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .back-home:hover {
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+
+<body class="auth-page">
+    <div class="auth-overlay"></div>
+
+    <a href="index.html" class="back-home">
+        <i data-lucide="arrow-left"></i> Back to Store
+    </a>
+
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="logo">CodeAlpha</div>
+            <p id="auth-subtitle">Welcome back to premium living</p>
+        </div>
+
+        <div class="auth-tabs">
+            <button class="active" id="tab-login">Login</button>
+            <button id="tab-register">Register</button>
+        </div>
+
+        <form id="login-form" class="auth-form active">
+            <div class="form-group">
+                <i data-lucide="mail"></i>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <i data-lucide="lock"></i>
+                <input type="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+        </form>
+
+        <form id="register-form" class="auth-form" style="display: none;">
+            <div class="form-group">
+                <i data-lucide="user"></i>
+                <input type="text" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+                <i data-lucide="mail"></i>
+                <input type="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+                <i data-lucide="lock"></i>
+                <input type="password" placeholder="Create Password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+        </form>
+
+        <div class="social-login">
+            <p>Or continue with email</p>
+            <div class="social-btns">
+                <button class="social-btn" id="gmail-btn">
+                    <img src="https://www.gstatic.com/images/branding/product/1x/gmail_512dp.png" alt="Gmail">
+                    Gmail
+                </button>
+                <button class="social-btn">
+                    <i data-lucide="mail" style="width: 18px; position: static;"></i>
+                    Outlook
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Account Picker Mockup -->
+    <div id="google-picker-modal" class="modal">
+        <div class="google-picker-content">
+            <div class="google-logo">
+                <img src="https://www.gstatic.com/images/branding/product/1x/google_20d_512dp.png" alt="Google">
+            </div>
+            <h3>Choose an account</h3>
+            <p>to continue to CodeAlpha</p>
+
+            <div class="account-list">
+                <div class="account-item" data-email="premium.user@gmail.com" data-name="Premium User">
+                    <div class="account-avatar">P</div>
+                    <div class="account-info">
+                        <span class="acc-name">Premium User</span>
+                        <span class="acc-email">premium.user@gmail.com</span>
+                    </div>
+                </div>
+                <div class="account-item" data-email="gowtham.dev@gmail.com" data-name="Gowtham Dev">
+                    <div class="account-avatar" style="background: #ea4335;">G</div>
+                    <div class="account-info">
+                        <span class="acc-name">Gowtham Dev</span>
+                        <span class="acc-email">gowtham.dev@gmail.com</span>
+                    </div>
+                </div>
+                <div class="account-item" id="use-another-account">
+                    <div class="account-avatar" style="background: #f1f1f1; color: #666;"><i data-lucide="user-plus"
+                            style="width: 20px;"></i></div>
+                    <div class="account-info">
+                        <span class="acc-name">Use another account</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="picker-footer">
+                To continue, Google will share your name, email address, language preference, and profile picture with
+                CodeAlpha.
+            </div>
+            <button class="close-picker">&times;</button>
+        </div>
+    </div>
+
+    <style>
+        .google-picker-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            margin: 15vh auto;
+            border-radius: 8px;
+            padding: 2.5rem;
+            position: relative;
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+        }
+
+        .google-logo img {
+            width: 75px;
+            margin-bottom: 1rem;
+        }
+
+        .google-picker-content h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .google-picker-content p {
+            color: #3c4043;
+            margin-bottom: 2rem;
+        }
+
+        .account-list {
+            text-align: left;
+            border-top: 1px solid #ddd;
+            margin-bottom: 2rem;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+
+        .account-item:hover {
+            background: #f7f8f8;
+        }
+
+        .account-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #4285f4;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .acc-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #3c4043;
+        }
+
+        .acc-email {
+            font-size: 0.8rem;
+            color: #70757a;
+        }
+
+        .picker-footer {
+            font-size: 0.75rem;
+            color: #70757a;
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        .close-picker {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #70757a;
+        }
+    </style>
+
+    <script src="auth.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

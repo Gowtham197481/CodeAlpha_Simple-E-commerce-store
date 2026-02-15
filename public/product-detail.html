@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - CodeAlpha</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="guard.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .detail-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .detail-image {
+            position: relative;
+        }
+
+        .detail-image img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .detail-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+        }
+
+        .price-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        .current-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .discount-badge-large {
+            background: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            width: fit-content;
+        }
+
+        .savings {
+            color: #2ed573;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .detail-container {
+                grid-template-columns: 1fr;
+                margin: 80px 1rem;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">E-Cart<span> Elite</span></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="#">Categories</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="detail-container">
+            <div class="detail-image">
+                <a onclick="history.back()" class="back-btn">
+                    <i data-lucide="arrow-left"></i> Back to Shop
+                </a>
+                <img id="product-img" src="" alt="">
+            </div>
+            <div class="detail-info">
+                <div id="product-category" class="product-category"></div>
+                <h1 id="product-name"></h1>
+                <p id="product-description" class="text-muted"></p>
+
+                <div class="price-section">
+                    <div id="discount-badge" class="discount-badge-large"></div>
+                    <div class="price-row" style="display: flex; align-items: baseline; gap: 1rem;">
+                        <span id="current-price" class="current-price"></span>
+                        <span id="original-price" class="original-price"></span>
+                    </div>
+                    <div id="savings-amount" class="savings"></div>
+                </div>
+
+                <div class="advantages-section">
+                    <h3>Key Advantages</h3>
+                    <ul id="product-advantages" class="advantages-list"></ul>
+                </div>
+
+                <button id="add-to-cart-btn" class="btn-primary" style="padding: 1.2rem; font-size: 1.1rem;">
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">1</div>
+                <div class="step" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+            </div>
+
+            <form id="checkout-form">
+                <!-- Step 1: Address -->
+                <div class="checkout-form-step active" data-step="1">
+                    <h3>Delivery Address</h3>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="checkout-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="checkout-address" placeholder="Flat/House No, Colony, Street" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>City & Pincode</label>
+                        <input type="text" id="checkout-city" placeholder="City, Pincode" required>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-primary next-step">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-form-step" data-step="2">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="gpay" required>
+                            <i data-lucide="smartphone"></i>
+                            <span>Google Pay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="phonepe">
+                            <i data-lucide="smartphone"></i>
+                            <span>PhonePe</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <i data-lucide="truck"></i>
+                            <span>Cash on Delivery</span>
+                        </label>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-secondary prev-step">Back</button>
+                        <button type="submit" class="btn-primary">Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div class="checkout-form-step" data-step="3">
+                    <div class="success-content">
+                        <div class="success-icon">
+                            <i data-lucide="check" size="40"></i>
+                        </div>
+                        <h2>Order Placed!</h2>
+                        <div id="order-summary" class="order-summary-box">
+                            <!-- Order details will be injected here -->
+                        </div>
+                        <p>Your order has been successfully placed and will be delivered soon.</p>
+                        <div class="checkout-actions">
+                            <button type="button" class="btn-secondary"
+                                onclick="window.location.href='shop.html'">Continue Shopping</button>
+                            <button type="button" class="btn-primary" onclick="window.location.href='orders.html'">Track
+                                Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="checkout.js"></script>
+    <script src="product-detail.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

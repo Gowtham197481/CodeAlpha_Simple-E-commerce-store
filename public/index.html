@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha | Elevating Your Shopping Since 2012</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="guard.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">CodeAlpha</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="javascript:void(0)" onclick="protectedRedirect('shop.html')">Shop</a></li>
+                <li><a href="javascript:void(0)" onclick="protectedRedirect('orders.html')">My Orders</a></li>
+                <li><a href="javascript:void(0)" onclick="protectedRedirect('shop.html')">Categories</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search products...">
+                </div>
+                <div class="icon-btns">
+                    <button id="auth-btn"><i data-lucide="user"></i></button>
+                    <button id="cart-btn" class="cart-icon">
+                        <i data-lucide="shopping-bag"></i>
+                        <span id="cart-count">0</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Elevate Your <span>Lifestyle</span></h1>
+                <p>Curated selection of premium products designed for the modern minimalist.</p>
+                <div class="hero-btns">
+                    <button class="btn-primary" onclick="protectedRedirect('shop.html')">Shop Now</button>
+                    <button class="btn-secondary" onclick="protectedRedirect('shop.html')">View Collections</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats & Achievements Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-icon"><i data-lucide="award"></i></div>
+                    <div class="stat-info">
+                        <h3>12+ Years</h3>
+                        <p>Industry Experience</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i data-lucide="users"></i></div>
+                    <div class="stat-info">
+                        <h3>2M+ Happy</h3>
+                        <p>Global Customers</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i data-lucide="star"></i></div>
+                    <div class="stat-info">
+                        <h3>Top Merchant</h3>
+                        <p>E-commerce Award 2025</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon"><i data-lucide="shield-check"></i></div>
+                    <div class="stat-info">
+                        <h3>100% Secure</h3>
+                        <p>Trusted by Millions</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <a href="#" class="view-all">View All <i data-lucide="arrow-right"></i></a>
+            </div>
+            <div id="product-grid" class="product-grid">
+                <!-- Products will be loaded here -->
+                <div class="loader"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo">CodeAlpha</div>
+                <p>The standard of modern e-commerce.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h4>Newsletter</h4>
+                <p>Join our list for exclusive releases.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Email address">
+                    <button><i data-lucide="arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 CodeAlpha. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="auth-tabs">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+            <form id="login-form" class="auth-form active">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <form id="register-form" class="auth-form">
+                <input type="text" placeholder="Username" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cart-drawer" class="drawer">
+        <div class="drawer-header">
+            <h3>Your Cart</h3>
+            <button class="close-drawer">&times;</button>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="drawer-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="total-amount">$0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn-primary" onclick="openCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="checkout-steps">
+                <div class="step active" data-step="1">1</div>
+                <div class="step" data-step="2">2</div>
+                <div class="step" data-step="3">3</div>
+            </div>
+
+            <form id="checkout-form">
+                <!-- Step 1: Address -->
+                <div class="checkout-form-step active" data-step="1">
+                    <h3>Delivery Address</h3>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="checkout-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Delivery Address</label>
+                        <textarea id="checkout-address" placeholder="Flat/House No, Colony, Street" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>City & Pincode</label>
+                        <input type="text" id="checkout-city" placeholder="City, Pincode" required>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-primary next-step">Continue to Payment</button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div class="checkout-form-step" data-step="2">
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="gpay" required>
+                            <i data-lucide="smartphone"></i>
+                            <span>Google Pay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="phonepe">
+                            <i data-lucide="smartphone"></i>
+                            <span>PhonePe</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <i data-lucide="truck"></i>
+                            <span>Cash on Delivery</span>
+                        </label>
+                    </div>
+                    <div class="checkout-actions">
+                        <button type="button" class="btn-secondary prev-step">Back</button>
+                        <button type="submit" class="btn-primary">Place Order</button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success -->
+                <div class="checkout-form-step" data-step="3">
+                    <div class="success-content">
+                        <div class="success-icon">
+                            <i data-lucide="check" size="40"></i>
+                        </div>
+                        <h2>Order Placed!</h2>
+                        <div id="order-summary" class="order-summary-box">
+                            <!-- Order details will be injected here -->
+                        </div>
+                        <p>Your order has been successfully placed and will be delivered soon.</p>
+                        <div class="checkout-actions">
+                            <button type="button" class="btn-secondary"
+                                onclick="window.location.href='shop.html'">Continue Shopping</button>
+                            <button type="button" class="btn-primary" onclick="window.location.href='orders.html'">Track
+                                Order</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="checkout.js"></script>
+    <script src="app.js"></script>
+    <script>
+        function protectedRedirect(url) {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user) {
+                localStorage.setItem('redirectAfterLogin', url);
+                window.location.href = 'auth.html';
+            } else {
+                window.location.href = url;
+            }
+        }
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
