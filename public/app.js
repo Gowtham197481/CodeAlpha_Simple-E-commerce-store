@@ -145,7 +145,32 @@ closeButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         authModal.classList.remove('active');
         cartDrawer.classList.remove('active');
+        document.getElementById('contact-modal').classList.remove('active');
     });
+});
+
+// About Us Modal Logic
+const aboutUsLink = document.getElementById('about-us-link');
+const contactModal = document.getElementById('contact-modal');
+const closeContactModal = document.getElementById('close-contact-modal');
+
+if (aboutUsLink) {
+    aboutUsLink.addEventListener('click', () => {
+        contactModal.classList.add('active');
+    });
+}
+
+if (closeContactModal) {
+    closeContactModal.addEventListener('click', () => {
+        contactModal.classList.remove('active');
+    });
+}
+
+// Close modal when clicking outside
+window.addEventListener('click', (e) => {
+    if (e.target === contactModal) {
+        contactModal.classList.remove('active');
+    }
 });
 
 // Modal Tabbing

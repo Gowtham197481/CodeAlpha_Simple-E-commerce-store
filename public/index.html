@@ -29,8 +29,8 @@
                     <input type="text" placeholder="Search products...">
                 </div>
                 <div class="icon-btns">
-                    <button id="auth-btn"><i data-lucide="user"></i></button>
-                    <button id="cart-btn" class="cart-icon">
+                    <button id="auth-btn" type="button"><i data-lucide="user"></i></button>
+                    <button id="cart-btn" class="cart-icon" type="button">
                         <i data-lucide="shopping-bag"></i>
                         <span id="cart-count">0</span>
                     </button>
@@ -45,8 +45,9 @@
                 <h1>Elevate Your <span>Lifestyle</span></h1>
                 <p>Curated selection of premium products designed for the modern minimalist.</p>
                 <div class="hero-btns">
-                    <button class="btn-primary" onclick="protectedRedirect('shop.html')">Shop Now</button>
-                    <button class="btn-secondary" onclick="protectedRedirect('shop.html')">View Collections</button>
+                    <button class="btn-primary" type="button" onclick="protectedRedirect('shop.html')">Shop Now</button>
+                    <button class="btn-secondary" type="button" onclick="protectedRedirect('shop.html')">View
+                        Collections</button>
                 </div>
             </div>
         </section>
@@ -106,7 +107,7 @@
             <div class="footer-links">
                 <h4>Company</h4>
                 <ul>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="javascript:void(0)" id="about-us-link">About Us</a></li>
                     <li><a href="#">Careers</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
@@ -116,7 +117,7 @@
                 <p>Join our list for exclusive releases.</p>
                 <div class="newsletter-input">
                     <input type="email" placeholder="Email address">
-                    <button><i data-lucide="arrow-right"></i></button>
+                    <button type="button"><i data-lucide="arrow-right"></i></button>
                 </div>
             </div>
         </div>
@@ -128,10 +129,10 @@
     <!-- Auth Modal -->
     <div id="auth-modal" class="modal">
         <div class="modal-content">
-            <button class="close-modal">&times;</button>
+            <button class="close-modal" type="button">&times;</button>
             <div class="auth-tabs">
-                <button class="tab-btn active" data-tab="login">Login</button>
-                <button class="tab-btn" data-tab="register">Register</button>
+                <button class="tab-btn active" data-tab="login" type="button">Login</button>
+                <button class="tab-btn" data-tab="register" type="button">Register</button>
             </div>
             <form id="login-form" class="auth-form active">
                 <input type="email" placeholder="Email" required>
@@ -151,7 +152,7 @@
     <div id="cart-drawer" class="drawer">
         <div class="drawer-header">
             <h3>Your Cart</h3>
-            <button class="close-drawer">&times;</button>
+            <button class="close-drawer" type="button">&times;</button>
         </div>
         <div id="cart-items" class="cart-items">
             <!-- Cart items will be loaded here -->
@@ -161,14 +162,15 @@
                 <span>Total:</span>
                 <span id="total-amount">$0.00</span>
             </div>
-            <button id="checkout-btn" class="btn-primary" onclick="openCheckout()">Proceed to Checkout</button>
+            <button id="checkout-btn" class="btn-primary" type="button" onclick="openCheckout()">Proceed to
+                Checkout</button>
         </div>
     </div>
 
     <!-- Checkout Modal -->
     <div id="checkout-modal" class="modal">
         <div class="modal-content">
-            <button class="close-modal">&times;</button>
+            <button class="close-modal" type="button">&times;</button>
             <div class="checkout-steps">
                 <div class="step active" data-step="1">1</div>
                 <div class="step" data-step="2">2</div>
@@ -242,6 +244,47 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content contact-modal-content">
+            <button class="close-modal" id="close-contact-modal" type="button">&times;</button>
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">About <span>Our Store</span></h2>
+                <p>Delivering excellence and style since 2012.</p>
+            </div>
+
+            <div class="contact-info-grid">
+                <div class="info-item">
+                    <i data-lucide="map-pin"></i>
+                    <h4>Our Location</h4>
+                    <p>123 Luxury Lane, Fashion District<br>New York, NY 10001</p>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="phone"></i>
+                    <h4>Call Us</h4>
+                    <p>+1 (212) 555-0199<br>Mon - Fri, 9AM - 8PM</p>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="mail"></i>
+                    <h4>Email Support</h4>
+                    <p>support@ecartelite.com<br>Response within 24 hours</p>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="clock"></i>
+                    <h4>Store Hours</h4>
+                    <p>Sat - Sun: 10AM - 6PM<br>Online: 24/7</p>
+                </div>
+            </div>
+
+            <div class="social-links">
+                <a href="#"><i data-lucide="instagram"></i></a>
+                <a href="#"><i data-lucide="facebook"></i></a>
+                <a href="#"><i data-lucide="twitter"></i></a>
+                <a href="#"><i data-lucide="linkedin"></i></a>
+            </div>
         </div>
     </div>
 

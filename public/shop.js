@@ -217,13 +217,32 @@ function setupEventListeners() {
             authModal.classList.remove('active');
             cartDrawer.classList.remove('active');
             productModal.classList.remove('active');
+            document.getElementById('contact-modal').classList.remove('active');
         });
     });
+
+    // About Us Modal Logic
+    const aboutUsLink = document.getElementById('about-us-link');
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactModal = document.getElementById('close-contact-modal');
+
+    if (aboutUsLink) {
+        aboutUsLink.addEventListener('click', () => {
+            contactModal.classList.add('active');
+        });
+    }
+
+    if (closeContactModal) {
+        closeContactModal.addEventListener('click', () => {
+            contactModal.classList.remove('active');
+        });
+    }
 
     window.addEventListener('click', (e) => {
         if (e.target === authModal) authModal.classList.remove('active');
         if (e.target === cartDrawer) cartDrawer.classList.remove('active');
         if (e.target === productModal) productModal.classList.remove('active');
+        if (e.target === contactModal) contactModal.classList.remove('active');
     });
 
     const tabBtns = document.querySelectorAll('.tab-btn');
